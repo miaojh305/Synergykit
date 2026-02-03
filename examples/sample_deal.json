@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "deal_name": "Apex Industries / Bolt Manufacturing",
+    "acquirer": "Apex Industries",
+    "target": "Bolt Manufacturing",
+    "date": "2025-06-15",
+    "analyst": "M. Chen, Corp Dev"
+  },
+  "deal_terms": {
+    "enterprise_value": 500.0,
+    "discount_rate": 0.10,
+    "projection_years": 5
+  },
+  "cost_synergies": [
+    {
+      "category": "procurement",
+      "description": "Consolidated vendor contracts across raw materials and logistics",
+      "run_rate": 15.0
+    },
+    {
+      "category": "sga",
+      "description": "Elimination of duplicate corporate functions (finance, HR, legal)",
+      "run_rate": 10.0
+    }
+  ],
+  "revenue_synergies": [
+    {
+      "category": "cross_sell",
+      "description": "Cross-sell Apex specialty coatings through Bolt OEM distribution channels",
+      "run_rate": 8.0
+    }
+  ],
+  "integration_costs": [
+    {
+      "category": "severance",
+      "description": "Severance packages for redundant corporate staff (~120 FTEs)",
+      "amount": 12.0,
+      "year": 1
+    },
+    {
+      "category": "it_integration",
+      "description": "ERP migration from Bolt legacy system to SAP S/4HANA",
+      "amount": 5.0,
+      "year": 2
+    },
+    {
+      "category": "rebranding",
+      "description": "Brand consolidation and signage updates across 14 facilities",
+      "amount": 1.5,
+      "year": 1
+    }
+  ]
+}
