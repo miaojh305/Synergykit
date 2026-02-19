@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Smoke test — imports
+        run: |
+          python -c "from synergykit.engine import run_model; print('import ok')"
+
+      - name: Smoke test — sample deal end-to-end
+        run: |
+          python -c "
+          import json
+          from synergykit.engine import deal_input_to_case_state, run_model
+          from synergykit.schema import DealInput
+
+          raw = json.load(open('examples/sample_deal.json'))
+          cs = deal_input_to_case_state(DealInput(**raw))
+          out = run_model(cs)
+          assert 'summary' in out, 'missing summary key'
+          npv = out['summary'].get('npv_net_synergies')
+          assert npv is not None, 'NPV is None'
+          print(f'NPV: \${npv}M')
+          "
