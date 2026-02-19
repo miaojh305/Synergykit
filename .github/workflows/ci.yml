@@ -21,20 +21,21 @@ jobs:
 
       - name: Smoke test — imports
         run: |
-          python -c "from synergykit.engine import run_model; print('import ok')"
+          python -c "from synergykit.engine import run; print('import ok')"
 
       - name: Smoke test — sample deal end-to-end
         run: |
           python -c "
           import json
-          from synergykit.engine import deal_input_to_case_state, run_model
+          from synergykit.engine import run
           from synergykit.schema import DealInput
 
           raw = json.load(open('examples/sample_deal.json'))
-          cs = deal_input_to_case_state(DealInput(**raw))
-          out = run_model(cs)
-          assert 'summary' in out, 'missing summary key'
-          npv = out['summary'].get('npv_net_synergies')
+          deal = DealInput(**raw)
+          result = run(deal)
+          assert hasattr(result, 'summary'), 'missing summary attribute'
+          assert hasattr(result, 'synergy_schedule'), 'missing synergy_schedule attribute'
+          npv = result.summary.get('npv_net_synergies')
           assert npv is not None, 'NPV is None'
           print(f'NPV: \${npv}M')
           "
